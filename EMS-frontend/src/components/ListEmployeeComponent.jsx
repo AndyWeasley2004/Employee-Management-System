@@ -22,6 +22,14 @@ const ListEmployeeComponent = () => {
             });
     }, []);
 
+    function getAllEmployees(){
+        listEmployees().then((response) => {
+            setEmployees(response.data);
+        }).catch(error => {
+            console.error(error);
+        })
+    }
+
     function addNewEmployee(){
         navigator('/add-employee')
     }
