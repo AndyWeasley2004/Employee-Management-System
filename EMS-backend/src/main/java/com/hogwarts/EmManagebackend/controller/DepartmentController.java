@@ -2,7 +2,6 @@ package com.hogwarts.EmManagebackend.controller;
 
 
 import com.hogwarts.EmManagebackend.dto.DepartmentDto;
-import com.hogwarts.EmManagebackend.entity.Department;
 import com.hogwarts.EmManagebackend.service.DepartmentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/departments")
 @AllArgsConstructor
+@CrossOrigin("*")
 public class DepartmentController {
 
     private DepartmentService departmentService;

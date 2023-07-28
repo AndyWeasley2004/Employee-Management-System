@@ -23,4 +23,6 @@ public class Department {
 
     @Column(name = "department_description")
     private String departmentDescription;
+
+
 }
