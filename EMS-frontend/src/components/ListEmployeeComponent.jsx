@@ -1,22 +1,26 @@
 import React, {useEffect, useState} from 'react'
 import {deleteEmployee, listEmployees} from '../services/EmployeeService'
 import {useNavigate} from 'react-router-dom'
+import {getAllDepartments} from "../services/DepartmentService.js";
 
 const ListEmployeeComponent = () => {
-    const [employees, setEmployees] = useState([])
+    const [employees, setEmployees] = useState([]);
+    const [departments, setDepartments] = useState([]);
     const navigator = useNavigate();
 
     useEffect(() => {
-        getAllEmployees();
-    }, [])
-
-    function getAllEmployees(){
-        listEmployees().then((response) => {
-            setEmployees(response.data);
-        }).catch(error => {
-            console.error(error);
-        })
-    }
+        // Fetch employees and departments simultaneously using Promise.all
+        Promise.all([listEmployees(), getAllDepartments()])
+            .then((responses) => {
+                const employeesResponse = responses[0];
+                const departmentsResponse = responses[1];
+                setEmployees(employeesResponse.data);
+                setDepartments(departmentsResponse.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }, []);
 
     function addNewEmployee(){
         navigator('/add-employee')
@@ -28,7 +32,7 @@ const ListEmployeeComponent = () => {
 
     function removeEmployee(id){
         deleteEmployee(id).then((response) => {
-            getAllEmployees()
+            getAllEmployees();
         }).catch(error => {
             console.error(error);
         })
@@ -45,24 +49,28 @@ const ListEmployeeComponent = () => {
                         <th>Employee First Name</th>
                         <th>Employee Last Name</th>
                         <th>Employee Email Id</th>
+                        <th>Employee Department</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        employees.map(employee =>
-                            <tr key={employee.id}>
-                                <td>{employee.id}</td>
-                                <td>{employee.firstName}</td>
-                                <td>{employee.lastName}</td>
-                                <td>{employee.email}</td>
-                                <td>
-                                    <button className='btn btn-info' onClick={() => updateEmployee(employee.id)}>Update</button>
-                                    <button className='btn btn-danger' onClick={() => removeEmployee(employee.id)}
-                                        style={{marginLeft: '15px'}}>Delete</button>
-                                </td>
-                            </tr>)
-                    }
+                {employees.map(employee => {
+                    const departmentName = departments.find(department => department.id === employee.departmentId)?.departmentName || 'Unknown Department';
+
+                    return (
+                        <tr key={employee.id}>
+                            <td>{employee.id}</td>
+                            <td>{employee.firstName}</td>
+                            <td>{employee.lastName}</td>
+                            <td>{employee.email}</td>
+                            <td>{departmentName}</td>
+                            <td>
+                                <button className='btn btn-info' onClick={() => updateEmployee(employee.id)}>Update</button>
+                                <button className='btn btn-danger' onClick={() => removeEmployee(employee.id)} style={{ marginLeft: '15px' }}>Delete</button>
+                            </td>
+                        </tr>
+                    );
+                })}
                 </tbody>
             </table>
         </div>
