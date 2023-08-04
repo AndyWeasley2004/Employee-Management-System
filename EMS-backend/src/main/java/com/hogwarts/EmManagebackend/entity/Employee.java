@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -31,4 +34,13 @@ public class Employee {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private Department department;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
+    private Set<Todo> todos = new HashSet<>();
+
+    public Employee addTodo(Todo todo){
+        todo.setEmployee(this);
+        this.todos.add(todo);
+        return this;
+    }
 }
