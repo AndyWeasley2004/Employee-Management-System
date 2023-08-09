@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {deleteEmployee, listEmployees} from '../services/EmployeeService'
-import {useNavigate} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {getAllDepartments} from "../services/DepartmentService.js";
 
 const ListEmployeeComponent = () => {
@@ -75,6 +75,9 @@ const ListEmployeeComponent = () => {
                             <td>
                                 <button className='btn btn-info' onClick={() => updateEmployee(employee.id)}>Update</button>
                                 <button className='btn btn-danger' onClick={() => removeEmployee(employee.id)} style={{ marginLeft: '15px' }}>Delete</button>
+                                <Link to={`/employee/${employee.id}/todos`}>
+                                    <button className='btn btn-success' style={{ marginLeft: '15px' }}>View Todos</button>
+                                </Link>
                             </td>
                         </tr>
                     );
