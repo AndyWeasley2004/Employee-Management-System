@@ -26,6 +26,14 @@ public class TodoController {
         return ResponseEntity.ok(todos);
     }
 
+    @GetMapping("/{employeeId}/todo/{todoId}")
+    public ResponseEntity<TodoDto> getTodoById(@PathVariable Long employeeId,
+                                                    @PathVariable Long todoId){
+        TodoDto todoDto = todoService.findByEmployeeIdAndTodoId(employeeId, todoId);
+
+        return ResponseEntity.ok(todoDto);
+    }
+
     @PostMapping("/{id}/add")
     public ResponseEntity<TodoDto> addTodoToEmployee(@PathVariable("id") Long employeeId,
                                                      @RequestBody TodoDto todo){

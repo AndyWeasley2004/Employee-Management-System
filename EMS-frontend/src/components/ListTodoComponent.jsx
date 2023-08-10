@@ -23,11 +23,11 @@ const ListTodoComponent = () => {
     }
 
     function addNewTodo() {
-        navigate("/add-todo")
+        navigate(`/employee/${employeeId}/add-todo`)
     }
 
-    function updateTodo(employeeId, id){
-        navigate(`/${employeeId}/update-todo/${id}`);
+    function updateTodo(employeeId, todoId){
+        navigate(`/employee/${employeeId}/edit-todo/${todoId}`);
     }
 
     function removeTodo(employeeId, id){

@@ -9,6 +9,7 @@ import EmployeeComponent from './components/EmployeeComponent'
 import ListDepartmentComponent from "./components/ListDepartmentComponent.jsx";
 import DepartmentComponent from "./components/DepartmentComponent.jsx";
 import ListTodoComponent from "./components/ListTodoComponent.jsx";
+import TodoComponent from "./components/TodoComponent.jsx";
 
 function App() {
   const [count, setCount] = useState(0)
@@ -28,6 +29,9 @@ function App() {
           <Route path='/add-department' element = { <DepartmentComponent />}></Route>
           <Route path='/edit-department/:id' element = { <DepartmentComponent />}></Route>
           <Route path='/employee/:employeeId/todos' element = { <ListTodoComponent />}></Route>
+          <Route path='/employee/:employeeId/add-todo' element = { <TodoComponent />}></Route>
+          <Route path='/employee/:employeeId/edit-todo/:todoId' element = { <TodoComponent />}></Route>
+          <Route path='/employee/:employeeId/edit-todo/:todoId' element = { <TodoComponent />}></Route>
 
       </Routes>
 
