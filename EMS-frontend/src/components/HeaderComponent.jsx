@@ -6,7 +6,7 @@ const HeaderComponent = () => {
     <div>
         <header>
             <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
-                <a className='navbar-brand' href='#'>Employee Management System</a>
+                <a className='navbar-brand' href='http://localhost:3000/employees'>Employee Management System</a>
                 <div className="collapse navbar-collapse">
                     <ul className="navbar-nav">
                         <li className="nav-item">

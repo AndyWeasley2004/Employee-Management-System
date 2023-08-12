@@ -11,3 +11,5 @@ export const getDepartmentById = (departmentId) => axios.get(DEPARTMENT_REST_API
 export const updateDepartment = (departmentId, department) => axios.put(DEPARTMENT_REST_API_BASE_URL + '/' + departmentId, department);
 
 export const deleteDepartment = (departmentId) => axios.delete(DEPARTMENT_REST_API_BASE_URL + '/' + departmentId);
+
+export const getAllEmployeesInDept = (departmentId) => axios.get(DEPARTMENT_REST_API_BASE_URL + '/' + departmentId + '/employees');

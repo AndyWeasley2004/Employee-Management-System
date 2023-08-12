@@ -9,13 +9,20 @@ public class EmployeeMapper {
 
     public static EmployeeDto mapToEmployeeDto(Employee employee){
 
-        return new EmployeeDto(employee.getId(),
-                employee.getFirstName(),
-                employee.getLastName(),
-                employee.getEmail(),
-                employee.getDepartment().getId(),
-                employee.getTodos().stream().map(todo ->
-                        TodoMapper.mapToTodoDto(todo)).collect(Collectors.toSet()));
+        EmployeeDto employeeDto = new EmployeeDto();
+        employeeDto.setId(employee.getId());
+        employeeDto.setFirstName(employee.getFirstName());
+        employeeDto.setLastName(employee.getLastName());
+        employeeDto.setEmail(employee.getEmail());
+        employeeDto.setDepartmentId(employee.getDepartment().getId());
+
+        if(employee.getTodos() != null){
+            employeeDto.setTodos(employee.getTodos().stream().map(todo ->
+                    TodoMapper.mapToTodoDto(todo))
+                    .collect(Collectors.toSet()));
+        }
+
+        return employeeDto;
     }
 
     public static Employee mapToEmployee(EmployeeDto employeeDto){
@@ -25,8 +32,10 @@ public class EmployeeMapper {
         employee.setLastName(employeeDto.getLastName());
         employee.setFirstName(employeeDto.getFirstName());
 
-        employee.setTodos(employeeDto.getTodos().stream().map(todoDto ->
-                TodoMapper.mapToTodo(todoDto)).collect(Collectors.toSet()));
+        if(employeeDto.getTodos() != null){
+            employee.setTodos(employeeDto.getTodos().stream().map(todoDto ->
+                    TodoMapper.mapToTodo(todoDto)).collect(Collectors.toSet()));
+        }
 
         return employee;
     }

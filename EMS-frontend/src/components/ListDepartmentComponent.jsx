@@ -33,8 +33,13 @@ const ListDepartmentComponent = () => {
         })  // deleteDepartment comes from departmentService
     }
 
+    function getAllEmployees(id){
+        navigator(`/departments/${id}/employees`)
+    }
+
     return (
         <div className='container'>
+            <br/>
             <h2 className='text-center'>List of Departments</h2>
             <Link to='/add-department' className='btn btn-primary mb-2'>Add Department</Link>
             <table className='table table-striped table-bordered'>
@@ -54,7 +59,9 @@ const ListDepartmentComponent = () => {
                         <td>{department.departmentName}</td>
                         <td>{department.departmentDescription}</td>
                         <td>
-                            <button onClick={() => updateDepartment(department.id)} className='btn btn-info'>Update</button>
+                            <button onClick={() => getAllEmployees(department.id)} className='btn btn-info'>Members</button>
+                            <button onClick={() => updateDepartment(department.id)} className='btn btn-warning'
+                                    style={{marginLeft: "15px"}}>Update</button>
                             <button onClick={() => removeDepartment(department.id)} className='btn btn-danger'
                                     style={{marginLeft: "15px"}}>Delete</button>
                         </td>

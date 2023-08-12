@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,4 +16,5 @@ public class DepartmentDto {
     private Long id;
     private String departmentName;
     private String departmentDescription;
+    private Set<EmployeeDto> employees;
 }

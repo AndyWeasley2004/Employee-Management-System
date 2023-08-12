@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,6 +26,9 @@ public class Department {
 
     @Column(name = "department_description")
     private String departmentDescription;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
+    Set<Employee> employees = new HashSet<>();
 
 
 }

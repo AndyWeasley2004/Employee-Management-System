@@ -65,6 +65,7 @@ const ListTodoComponent = () => {
 
     return (
         <div className='container'>
+            <br/>
             <h2 className='text-center'>List of Todos</h2>
             <button className='btn btn-primary mb-2' onClick={addNewTodo}>Add Todos</button>
             <table className='table table-striped table-bordered'>

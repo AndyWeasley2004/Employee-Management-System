@@ -1,14 +1,17 @@
 package com.hogwarts.EmManagebackend.service;
 
 import com.hogwarts.EmManagebackend.dto.DepartmentDto;
+import com.hogwarts.EmManagebackend.dto.EmployeeDto;
 import com.hogwarts.EmManagebackend.entity.Department;
 import com.hogwarts.EmManagebackend.exception.ResourceNotFoundException;
 import com.hogwarts.EmManagebackend.mapper.DepartmentMapper;
+import com.hogwarts.EmManagebackend.mapper.EmployeeMapper;
 import com.hogwarts.EmManagebackend.repository.DepartmentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -65,5 +68,18 @@ public class DepartmentServiceImpl implements DepartmentService {
                         new ResourceNotFoundException("Department does not exist given Id: " + departmentId));
 
         departmentRepository.delete(department);
+    }
+
+    @Override
+    public Set<EmployeeDto> listEmployeesByDeptId(Long departmentId) {
+        Department department = departmentRepository.findById(departmentId).
+                orElseThrow(() ->
+                    new ResourceNotFoundException("Department does not exist given Id: " + departmentId));
+
+        Set<EmployeeDto> employees = department.getEmployees().stream()
+                .map(employee -> EmployeeMapper.mapToEmployeeDto(employee))
+                .collect(Collectors.toSet());
+
+        return employees;
     }
 }

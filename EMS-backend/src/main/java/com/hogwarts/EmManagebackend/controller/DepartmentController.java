@@ -2,6 +2,7 @@ package com.hogwarts.EmManagebackend.controller;
 
 
 import com.hogwarts.EmManagebackend.dto.DepartmentDto;
+import com.hogwarts.EmManagebackend.dto.EmployeeDto;
 import com.hogwarts.EmManagebackend.service.DepartmentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/departments")
@@ -56,5 +58,12 @@ public class DepartmentController {
         departmentService.deleteDepartment(departmentId);
 
         return ResponseEntity.ok("Department Delete Successfully");
+    }
+
+    @GetMapping("/{id}/employees")
+    public ResponseEntity<Set<EmployeeDto>> listAllEmployeesInDept(@PathVariable("id") Long departmentId){
+        Set<EmployeeDto> employees = departmentService.listEmployeesByDeptId(departmentId);
+
+        return ResponseEntity.ok(employees);
     }
 }
